@@ -83,6 +83,9 @@ export const getRouterData = app => {
     // name: '工作台',
     // authority: 'admin',
     // },
+    '/user/login': {
+      component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
+    },
     '/my/index': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/My/Index')),
     },
@@ -176,9 +179,6 @@ export const getRouterData = app => {
     // },
     '/user': {
       component: dynamicWrapper(app, [], () => import('../layouts/UserLayout')),
-    },
-    '/user/login': {
-      component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
     },
     '/user/register': {
       component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
