@@ -227,7 +227,7 @@ export default class Register extends Component {
                   message: '手机号格式错误！',
                 },
               ],
-            })(<Input size="large" style={{ width: '100%' }} placeholder="邮箱" />)}
+            })(<Input size="large" style={{ width: '100%' }} placeholder="手机号" />)}
           </FormItem>
           <FormItem>
             <Row gutter={8}>
