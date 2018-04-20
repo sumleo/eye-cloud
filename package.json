@@ -20,6 +20,12 @@
     "test:all": "node ./tests/run-tests.js",
     "prettier": "prettier --write ./src/**/**/**/*"
   },
+  "proxy":{
+    "/*": {
+      "target": "http://localhost:7800/",
+      "changeOrigin":true
+    }
+  }
   "dependencies": {
     "@antv/data-set": "^0.8.0",
     "@babel/polyfill": "^7.0.0-beta.36",
