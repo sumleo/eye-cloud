@@ -58,7 +58,7 @@ export default class LoginPage extends Component {
           <Password name="password" placeholder="888888/123456" />
           <Submit loading={submitting}>登录</Submit>
           <div className={styles.other}>
-            <a style={{ float: 'left' }} href="">
+            <a  >
               忘记密码
             </a>
             <Link className={styles.register} to="/user/register">
