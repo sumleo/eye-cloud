@@ -129,7 +129,7 @@ export default class BasicForms extends PureComponent {
             </FormItem>
             <FormItem>
               <Row>
-                <Col span={10} offset={7}>
+                <Col span={10} offset={7} >
                   <Dragger {...props}>
                     <p className="ant-upload-drag-icon">
                       <Icon type="inbox" />

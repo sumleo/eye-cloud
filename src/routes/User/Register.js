@@ -12,12 +12,14 @@ const passwordStatusMap = {
   ok: <div className={styles.success}>强度：强</div>,
   pass: <div className={styles.warning}>强度：中</div>,
   poor: <div className={styles.error}>强度：太短</div>,
+  strong: <div className={styles.error}>强度：太长</div>,
 };
 
 const passwordProgressMap = {
   ok: 'success',
   pass: 'normal',
   poor: 'exception',
+  strong:'exception',
 };
 
 @connect(({ register, loading }) => ({
@@ -67,10 +69,14 @@ export default class Register extends Component {
   getPasswordStatus = () => {
     const { form } = this.props;
     const value = form.getFieldValue('password');
+    if (value && value.length > 20) {
+      return 'strong';
+    }
     if (value && value.length > 9) {
       return 'ok';
     }
-    if (value && value.length > 5) {
+
+    if (value && value.length > 6) {
       return 'pass';
     }
     return 'poor';
@@ -123,7 +129,9 @@ export default class Register extends Component {
       }
       if (value.length < 6) {
         callback('error');
-      } else {
+      } else if(value.length>20){
+        callback('strong');
+      }else{
         const { form } = this.props;
         if (value && this.state.confirmDirty) {
           form.validateFields(['confirm'], { force: true });
@@ -155,7 +163,6 @@ export default class Register extends Component {
       </div>
     ) : null;
   };
-
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
@@ -185,7 +192,7 @@ export default class Register extends Component {
                   {passwordStatusMap[this.getPasswordStatus()]}
                   {this.renderPasswordProgress()}
                   <div style={{ marginTop: 10 }}>
-                    请至少输入 6 个字符。请不要使用容易被猜到的密码。
+                    请至少输入 6 个字符，至多不超过20个字符。请不要使用容易被猜到的密码。
                   </div>
                 </div>
               }
@@ -227,7 +234,7 @@ export default class Register extends Component {
                   message: '手机号格式错误！',
                 },
               ],
-            })(<Input size="large" style={{ width: '100%' }} placeholder="手机号" />)}
+            })(<Input  size="large" style={{ width: '100%' }} placeholder="手机号" />)}
           </FormItem>
           <FormItem>
             <Row gutter={8}>
