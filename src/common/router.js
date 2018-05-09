@@ -101,12 +101,12 @@ export const getRouterData = app => {
     '/diabetes/tasklist': {
       component: dynamicWrapper(app, ['rule'], () => import('../routes/Diabetes/TaskList')),
     },
-    '/eye/upload': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Eye/Upload')),
-    },
-    '/eye/tasklist': {
-      component: dynamicWrapper(app, ['rule'], () => import('../routes/Eye/TaskList')),
-    },
+    // '/eye/upload': {
+    //   component: dynamicWrapper(app, ['form'], () => import('../routes/Eye/Upload')),
+    // },
+    // '/eye/tasklist': {
+    //   component: dynamicWrapper(app, ['rule'], () => import('../routes/Eye/TaskList')),
+    // },
     // '/form/basic-form': {
     //   component: dynamicWrapper(app, ['form'], () => import('../routes/Forms/BasicForm')),
     // },

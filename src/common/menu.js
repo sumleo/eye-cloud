@@ -17,7 +17,7 @@ const menuData = [
     ],
   },
   {
-    name: '糖尿病早期诊断',
+    name: '糖尿病视网膜病变筛查',
     icon: 'book',
     path: 'diabetes',
     children: [
@@ -31,21 +31,21 @@ const menuData = [
       },
     ],
   },
-  {
-    name: '左右眼识别',
-    icon: 'eye',
-    path: 'eye',
-    children: [
-      {
-        name: '上传图片',
-        path: 'upload',
-      },
-      {
-        name: '我的任务列表',
-        path: 'tasklist',
-      },
-    ],
-  },
+  // {
+  //   name: '左右眼识别',
+  //   icon: 'eye',
+  //   path: 'eye',
+  //   children: [
+  //     {
+  //       name: '上传图片',
+  //       path: 'upload',
+  //     },
+  //     {
+  //       name: '我的任务列表',
+  //       path: 'tasklist',
+  //     },
+  //   ],
+  // },
 ];
 
 function formatter(data, parentPath = '/', parentAuthority) {
