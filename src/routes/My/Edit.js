@@ -62,7 +62,6 @@ export default class Index extends PureComponent {
     return (
       <PageHeaderLayout
         title="更改或完善个人信息"
-        content="更改或完善用户个人信息 工作单位 验证邮箱 可以在这里绑定更多个的验证邮箱 需要进行邮箱验证进行修改。"
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>

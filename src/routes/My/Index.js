@@ -60,7 +60,7 @@ export default class Index extends PureComponent {
     };
 
     return (
-      <PageHeaderLayout title="我的主页" content=" 展示了注册填写的用户名 注册邮箱 工作单位。">
+      <PageHeaderLayout title="我的主页">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="用户名">

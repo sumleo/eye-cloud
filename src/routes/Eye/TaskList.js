@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Alert, Table, Card, Form, Input, Row, Col, Button } from 'antd';
+import { Alert, Table, Card, Form, Input, Row, Col, Button,DatePicker } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
+const {RangePicker}=DatePicker;
 @connect(({ rule, loading }) => ({
   rule,
   loading: loading.models.rule,
@@ -39,7 +40,9 @@ export default class TaskList extends PureComponent {
           <span> | </span>
           <a onClick={that.handleClick}>删除</a>
           <span> | </span>
-          <a onClick={that.handleClick}>下载</a>
+          <a onClick={e => that.handleClick(e)}>诊断报告预览</a>
+          <span> | </span>
+          <a onClick={e => that.handleClick(e)}>下载诊断结果</a>
         </div>
       );
     }
@@ -53,6 +56,8 @@ export default class TaskList extends PureComponent {
       { title: '年龄', dataIndex: 'age', key: 'age' },
       { title: '判断结果', dataIndex: 'result', key: 'info' },
       { title: '运行状态进度', dataIndex: 'progress', key: 'progress' },
+      { title: '日期', dataIndex: 'date', key: 'date' },
+      { title: '运算时间', dataIndex: 'computeTime', key: 'computeTime' },
       { title: '作者', dataIndex: 'author', key: 'author' },
       { title: '操作', dataIndex: '', key: 'x', render: renderAction },
     ];
@@ -67,6 +72,8 @@ export default class TaskList extends PureComponent {
         score: '90',
         progress: '100%',
         author: 'Leo Liu',
+        date:'2018/5/9',
+        computeTime:"0.2s",
         address: '西湖区湖底公园1号',
         description: '一些具体病情',
       },
@@ -78,6 +85,8 @@ export default class TaskList extends PureComponent {
         result: '左眼',
         score: '90',
         progress: '100%',
+        date:'2018/5/9',
+        computeTime:"0.2s",
         author: 'Leo Liu',
         address: '西湖区湖底公园2号',
         description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。',
@@ -90,6 +99,8 @@ export default class TaskList extends PureComponent {
         result: '左眼',
         score: '90',
         progress: '100%',
+        date:'2018/5/9',
+        computeTime:"0.2s",
         author: 'Leo Liu',
         address: '西湖区湖底公园3号',
         description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。',
@@ -108,6 +119,19 @@ export default class TaskList extends PureComponent {
                 </Col>
                 <Col span={4} offset={1}>
                   <Button>Search</Button>
+                </Col>
+              </Row>
+            </FormItem>
+            <FormItem>
+              <Row>
+                <Col span={6}>
+                  <RangePicker />
+                </Col>
+                <Col span={6} offset={1}>
+                  <Input placeholder={"Something"} />
+                </Col>
+                <Col span={4} offset={1}>
+                  <Button>Advance Search</Button>
                 </Col>
               </Row>
             </FormItem>

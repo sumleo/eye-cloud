@@ -196,7 +196,6 @@ class BasicLayout extends React.PureComponent {
         <Layout>
           <Header style={{ padding: 0 }}>
             <GlobalHeader
-              logo={logo}
               currentUser={currentUser}
               fetchingNotices={fetchingNotices}
               notices={notices}

@@ -71,7 +71,6 @@ export default class BasicForms extends PureComponent {
     return (
       <PageHeaderLayout
         title="上传图片"
-        content="必须填写患者用户的姓名 必须填写性别 必须填写年龄 可填写最佳矫正视力 可文字填写糖尿病历史 这里全部都还是选用文字填写 因为文字填写比较稳定 选择文件直接进行上传 限定一张 图片最大10M的大小不能超过这个大小。"
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>

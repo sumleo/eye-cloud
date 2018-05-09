@@ -71,7 +71,6 @@ export default class BasicForms extends PureComponent {
     return (
       <PageHeaderLayout
         title="上传图片"
-        content="必须填写患者用户的姓名 必须填写性别 必须填写年龄 可填写最佳矫正视力 可文字填写糖尿病历史 这里全部都还是选用文字填写 因为文字填写比较稳定 选择文件直接进行上传 限定一张 图片最大10M的大小不能超过这个大小。"
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
@@ -87,7 +86,7 @@ export default class BasicForms extends PureComponent {
             </FormItem>
             <FormItem {...formItemLayout} label="性别">
               <div>
-                {getFieldDecorator('public', {
+                {getFieldDecorator('sex', {
                   initialValue: '1',
                 })(
                   <Radio.Group>
@@ -117,15 +116,39 @@ export default class BasicForms extends PureComponent {
                 ],
               })(<Input placeholder="XXX" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="糖尿病史">
-              {getFieldDecorator('goal', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入糖尿病史',
-                  },
-                ],
-              })(<TextArea style={{ minHeight: 32 }} placeholder="请输入病人糖尿病史" rows={4} />)}
+            {/*<FormItem {...formItemLayout} label="糖尿病史">*/}
+              {/*{getFieldDecorator('goal', {*/}
+                {/*rules: [*/}
+                  {/*{*/}
+                    {/*required: true,*/}
+                    {/*message: '请输入糖尿病史',*/}
+                  {/*},*/}
+                {/*],*/}
+              {/*})(<TextArea style={{ minHeight: 32 }} placeholder="请输入病人糖尿病史" rows={4} />)}*/}
+            {/*</FormItem>*/}
+            <FormItem {...formItemLayout} label="目标公开">
+              <div>
+                {getFieldDecorator('public', {
+                  initialValue: '2',
+                })(
+                  <Radio.Group>
+                    <Radio value="2">是:</Radio>
+                    <Radio value="1">否:(情况不明)</Radio>
+                  </Radio.Group>
+                )}
+                <FormItem style={{ marginBottom: 0 }}>
+                  {getFieldDecorator('publicUsers')(
+                    <Input
+                      placeholder="年"
+                      style={{
+                        margin: '8px 0',
+                        display: getFieldValue('public') === '2' ? 'block' : 'none',
+                      }}
+                    >
+                    </Input>
+                  )}
+                </FormItem>
+              </div>
             </FormItem>
             <FormItem>
               <Row>

@@ -4,7 +4,7 @@ import DocumentTitle from 'react-document-title';
 import { Icon } from 'antd';
 import GlobalFooter from '../components/GlobalFooter';
 import styles from './UserLayout.less';
-import logo from '../assets/logo.svg';
+//import logo from '../assets/logo.svg';
 import { getRoutes } from '../utils/utils';
 
 const links = [
@@ -50,11 +50,11 @@ class UserLayout extends React.PureComponent {
             <div className={styles.top}>
               <div className={styles.header}>
                 <Link to="/">
-                  <img alt="logo" className={styles.logo} src={logo} />
+                  {/*<img alt="logo" className={styles.logo} src={logo} />*/}
                   <span className={styles.title}>Eye Cloud</span>
                 </Link>
               </div>
-              <div className={styles.desc}>国内领先的眼科云平台</div>
+              <div className={styles.desc}>欢迎登陆</div>
             </div>
             <Switch>
               {getRoutes(match.path, routerData).map(item => (
