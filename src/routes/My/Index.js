@@ -93,6 +93,36 @@ export default class Index extends PureComponent {
                 ],
               })(<Input disabled placeholder="SUSTech" />)}
             </FormItem>
+            <FormItem {...formItemLayout} label="姓名">
+              {getFieldDecorator('title', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入标题',
+                  },
+                ],
+              })(<Input placeholder="Leo" disabled />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="职务">
+              {getFieldDecorator('title', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入标题',
+                  },
+                ],
+              })(<Input placeholder="学生" disabled />)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="地址">
+              {getFieldDecorator('title', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入标题',
+                  },
+                ],
+              })(<Input placeholder="南方科技大学" disabled />)}
+            </FormItem>
           </Form>
         </Card>
       </PageHeaderLayout>

@@ -74,6 +74,16 @@ export default class BasicForms extends PureComponent {
       >
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+            <FormItem {...formItemLayout} label="序列号">
+              {getFieldDecorator('code', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入序列号',
+                  },
+                ],
+              })(<Input placeholder="XXX" />)}
+            </FormItem>
             <FormItem {...formItemLayout} label="姓名">
               {getFieldDecorator('title1', {
                 rules: [
@@ -126,7 +136,7 @@ export default class BasicForms extends PureComponent {
                 {/*],*/}
               {/*})(<TextArea style={{ minHeight: 32 }} placeholder="请输入病人糖尿病史" rows={4} />)}*/}
             {/*</FormItem>*/}
-            <FormItem {...formItemLayout} label="目标公开">
+            <FormItem {...formItemLayout} label="糖尿病史">
               <div>
                 {getFieldDecorator('public', {
                   initialValue: '2',
@@ -157,7 +167,7 @@ export default class BasicForms extends PureComponent {
                     <p className="ant-upload-drag-icon">
                       <Icon type="inbox" />
                     </p>
-                    <p className="ant-upload-text">点击或将文件拖拽到此区域上传</p>
+                    <p className="ant-upload-text">点击或将文件拖拽到此区域上传<p style={{color:"red"}}>上传图片时确保图片方向正确</p></p>
                     <p className="ant-upload-hint">支持单个或批量上传，严禁上传10MB以上的文件</p>
                   </Dragger>
                 </Col>
