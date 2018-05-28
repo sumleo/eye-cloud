@@ -69,9 +69,7 @@ export default class BasicForms extends PureComponent {
     };
 
     return (
-      <PageHeaderLayout
-        title="上传图片"
-      >
+      <PageHeaderLayout title="上传图片">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="姓名">

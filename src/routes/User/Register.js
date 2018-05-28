@@ -19,7 +19,7 @@ const passwordProgressMap = {
   ok: 'success',
   pass: 'normal',
   poor: 'exception',
-  strong:'exception',
+  strong: 'exception',
 };
 
 @connect(({ register, loading }) => ({
@@ -129,9 +129,9 @@ export default class Register extends Component {
       }
       if (value.length < 6) {
         callback('error');
-      } else if(value.length>20){
+      } else if (value.length > 20) {
         callback('strong');
-      }else{
+      } else {
         const { form } = this.props;
         if (value && this.state.confirmDirty) {
           form.validateFields(['confirm'], { force: true });
@@ -234,7 +234,7 @@ export default class Register extends Component {
                   message: '手机号格式错误！',
                 },
               ],
-            })(<Input  size="large" style={{ width: '100%' }} placeholder="手机号" />)}
+            })(<Input size="large" style={{ width: '100%' }} placeholder="手机号" />)}
           </FormItem>
           <FormItem>
             <Row gutter={8}>

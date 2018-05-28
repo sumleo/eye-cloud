@@ -1,24 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import {
-  Form,
-  Input,
-  DatePicker,
-  Select,
-  Button,
-  Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
-} from 'antd';
+import { Form, Input, Button, Card } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import styles from './style.less';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
 
 @connect(({ loading }) => ({
   submitting: loading.effects['form/submitRegularForm'],
@@ -38,7 +24,7 @@ export default class Index extends PureComponent {
   };
   render() {
     const { submitting } = this.props;
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
       labelCol: {
@@ -60,9 +46,7 @@ export default class Index extends PureComponent {
     };
 
     return (
-      <PageHeaderLayout
-        title="更改或完善个人信息"
-      >
+      <PageHeaderLayout title="更改或完善个人信息">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="用户名">

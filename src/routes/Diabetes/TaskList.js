@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Alert, Table, Card, Form, Input, Row, Col, Button,DatePicker } from 'antd';
+import { Alert, Table, Card, Form, Input, Row, Col, Button, DatePicker } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
-const {RangePicker}=DatePicker;
+const { RangePicker } = DatePicker;
 @connect(({ rule, loading }) => ({
   rule,
   loading: loading.models.rule,
@@ -72,10 +72,10 @@ export default class TaskList extends PureComponent {
         info: '良好',
         score: '90',
         progress: '100%',
-        result:"右眼",
+        result: '右眼',
         author: 'Leo Liu',
-        date:'2018/5/9',
-        computeTime:"0.2s",
+        date: '2018/5/9',
+        computeTime: '0.2s',
         address: '西湖区湖底公园1号',
         description: '一些具体病情',
       },
@@ -86,9 +86,9 @@ export default class TaskList extends PureComponent {
         info: '良好',
         score: '90',
         progress: '100%',
-        result:"右眼",
-        date:'2018/5/9',
-        computeTime:"0.2s",
+        result: '右眼',
+        date: '2018/5/9',
+        computeTime: '0.2s',
         author: 'Leo Liu',
         address: '西湖区湖底公园2号',
         description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。',
@@ -101,9 +101,9 @@ export default class TaskList extends PureComponent {
         score: '90',
         progress: '100%',
         author: 'Leo Liu',
-        result:"左眼",
-        date:'2018/5/9',
-        computeTime:"0.2s",
+        result: '左眼',
+        date: '2018/5/9',
+        computeTime: '0.2s',
         address: '西湖区湖底公园3号',
         description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。',
       },
@@ -130,7 +130,7 @@ export default class TaskList extends PureComponent {
                   <RangePicker />
                 </Col>
                 <Col span={6} offset={1}>
-                  <Input placeholder={"Something"} />
+                  <Input placeholder={'Something'} />
                 </Col>
                 <Col span={4} offset={1}>
                   <Button>Advance Search</Button>
