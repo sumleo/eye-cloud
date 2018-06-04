@@ -9,10 +9,12 @@ const menuData = [
       {
         name: '我的主页',
         path: 'index',
+        authority: 'doctor',
       },
       {
         name: '更新/完善个人信息',
         path: 'edit',
+        authority: 'doctor',
       },
     ],
   },
@@ -24,10 +26,12 @@ const menuData = [
       {
         name: '上传图片',
         path: 'upload',
+        authority: 'doctor',
       },
       {
         name: '我的任务列表',
         path: 'tasklist',
+        authority: 'doctor',
       },
     ],
   },

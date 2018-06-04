@@ -6,9 +6,9 @@ import styles from './RegisterResult.less';
 
 const actions = (
   <div className={styles.actions}>
-    <a href="">
+    <a to="/">
       <Button size="large" type="primary">
-        查看邮箱
+        注册成功
       </Button>
     </a>
     <Link to="/">

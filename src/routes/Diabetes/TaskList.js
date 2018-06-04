@@ -1,18 +1,23 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Alert, Table, Card, Form, Input, Row, Col, Button, DatePicker } from 'antd';
+import { Alert, Button, Card, Col, DatePicker, Form, Input, message, Row, Table } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 const { RangePicker } = DatePicker;
-@connect(({ rule, loading }) => ({
+@connect(({ rule, loading, report }) => ({
   rule,
   loading: loading.models.rule,
+  report,
 }))
 @Form.create()
 export default class TaskList extends PureComponent {
-  state = {
-    selectedRows: [],
-  };
+  constructor(props) {
+    super(props);
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'report/getReports',
+    });
+  }
 
   componentDidMount() {
     const { dispatch } = this.props;
@@ -22,17 +27,16 @@ export default class TaskList extends PureComponent {
   }
   handleClick = e => {
     e.preventDefault();
-    this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
-        this.props.dispatch({
-          type: 'form/submitRegularForm',
-          payload: values,
-        });
-      }
-    });
+    message.success('操作成功');
   };
   render() {
     const that = this;
+    console.log(this.props);
+    let formatedData;
+    if (this.props.report.data && this.props.report.data.data) {
+      formatedData = this.props.report.data.data;
+    }
+    this.setState({ data: formatedData });
     function renderAction() {
       return (
         <div>
@@ -47,6 +51,7 @@ export default class TaskList extends PureComponent {
       );
     }
 
+    console.log(formatedData);
     function expandedRowRender(record) {
       return <div>{record.description}</div>;
     }
@@ -64,55 +69,12 @@ export default class TaskList extends PureComponent {
       { title: '操作', dataIndex: '', key: 'x', render: renderAction },
     ];
 
-    const data = [
-      {
-        key: 1,
-        name: '胡彦斌',
-        age: 32,
-        info: '良好',
-        score: '90',
-        progress: '100%',
-        result: '右眼',
-        author: 'Leo Liu',
-        date: '2018/5/9',
-        computeTime: '0.2s',
-        address: '西湖区湖底公园1号',
-        description: '一些具体病情',
-      },
-      {
-        key: 2,
-        name: '吴彦祖',
-        age: 42,
-        info: '良好',
-        score: '90',
-        progress: '100%',
-        result: '右眼',
-        date: '2018/5/9',
-        computeTime: '0.2s',
-        author: 'Leo Liu',
-        address: '西湖区湖底公园2号',
-        description: '我是吴彦祖，今年42岁，住在西湖区湖底公园2号。',
-      },
-      {
-        key: 3,
-        name: '李大嘴',
-        age: 32,
-        info: '良好',
-        score: '90',
-        progress: '100%',
-        author: 'Leo Liu',
-        result: '左眼',
-        date: '2018/5/9',
-        computeTime: '0.2s',
-        address: '西湖区湖底公园3号',
-        description: '我是李大嘴，今年32岁，住在西湖区湖底公园3号。',
-      },
-    ];
-
     return (
       <PageHeaderLayout title="查询表格">
         <Card bordered={false}>
-          <Alert message="Welcome!!!!" type="error" />
+          <div hidden="true">
+            <Alert message="Welcome!!!!" type="error"/>
+          </div>
           <Form>
             <FormItem>
               <Row>
@@ -142,7 +104,7 @@ export default class TaskList extends PureComponent {
             <Table
               columns={columns}
               expandedRowRender={expandedRowRender}
-              dataSource={data}
+              dataSource={formatedData || []}
               className="table"
             />
           </div>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'dva';
-import { routerRedux, Link } from 'dva/router';
-import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd';
+import { Link, routerRedux } from 'dva/router';
+import { Button, Col, Form, Input, Popover, Progress, Row, Select } from 'antd';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
@@ -166,7 +166,7 @@ export default class Register extends Component {
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
-    const { count, prefix } = this.state;
+    const { count } = this.state;
     return (
       <div className={styles.main}>
         <h3>注册</h3>

@@ -1,30 +1,26 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import {
-  Form,
-  Input,
-  DatePicker,
-  Select,
-  Button,
-  Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
-} from 'antd';
+import { Card, DatePicker, Form, Input, Select } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import styles from './style.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 const { TextArea } = Input;
 
-@connect(({ loading }) => ({
+@connect(({ my, loading }) => ({
   submitting: loading.effects['form/submitRegularForm'],
+  my,
 }))
 @Form.create()
 export default class Index extends PureComponent {
+  constructor(props) {
+    super(props);
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'my/getUserInformation',
+    });
+  }
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
@@ -38,7 +34,7 @@ export default class Index extends PureComponent {
   };
   render() {
     const { submitting } = this.props;
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
       labelCol: {
@@ -51,47 +47,35 @@ export default class Index extends PureComponent {
         md: { span: 10 },
       },
     };
-
-    const submitFormLayout = {
-      wrapperCol: {
-        xs: { span: 24, offset: 0 },
-        sm: { span: 10, offset: 7 },
-      },
-    };
-
+    const { my } = this.props;
+    let data;
+    if (my && my.data && my.data.data) {
+      data = my.data.data;
+    }
+    console.log(data);
     return (
       <PageHeaderLayout title="我的主页">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="用户名">
-              {getFieldDecorator('title', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入标题',
-                  },
-                ],
-              })(<Input placeholder="Leo" disabled />)}
+              {getFieldDecorator('username', {
+                initialValue: data ? data.userName || '未设置' : '未设置',
+              })(<Input disabled/>)}
             </FormItem>
             <FormItem {...formItemLayout} label="注册邮箱">
-              {getFieldDecorator('title', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入标题',
-                  },
-                ],
-              })(<Input disabled placeholder="11610522@mail.sustc.edu.cn" />)}
+              {getFieldDecorator('mail', {
+                initialValue: data ? data.mail || '未设置' : '未设置',
+              })(<Input disabled/>)}
             </FormItem>
             <FormItem {...formItemLayout} label="工作单位">
-              {getFieldDecorator('title', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入标题',
-                  },
-                ],
-              })(<Input disabled placeholder="SUSTech" />)}
+              {getFieldDecorator('workPlace', {
+                initialValue: data ? data.workPlace || '未设置' : '未设置',
+              })(<Input disabled/>)}
+            </FormItem>
+            <FormItem {...formItemLayout} label="验证邮箱">
+              {getFieldDecorator('verifyMail', {
+                initialValue: data ? data.verifyMail || '未设置' : '未设置',
+              })(<Input disabled/>)}
             </FormItem>
           </Form>
         </Card>

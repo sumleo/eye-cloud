@@ -17,9 +17,12 @@ export default {
         type: 'changeLoginStatus',
         payload: response,
       });
+      console.log(response);
       // Login successfully
       if (response.status === 'ok') {
         reloadAuthorized();
+        console.log(localStorage.getItem('antd-pro-authority'));
+        console.log('my index');
         yield put(routerRedux.push('/my/index'));
       }
     },

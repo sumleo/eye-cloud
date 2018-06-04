@@ -67,6 +67,27 @@ export async function fakeAccountLogin(params) {
   });
 }
 
+export async function getUserInformation() {
+  return request(`/api/my/getUserInformation`);
+}
+
+export async function submitMyForm(params) {
+  return request('/api/my/edit', {
+    method: 'POST',
+    body: params,
+  });
+}
+
+export async function getReportsInfomation(params) {
+  return request('/api/report/getReports');
+}
+
+export async function submitReport(params) {
+  return request('/api/report/submit', {
+    method: 'POST',
+    body: params,
+  });
+}
 export async function fakeRegister(params) {
   return request('/api/register', {
     method: 'POST',

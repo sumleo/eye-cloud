@@ -87,19 +87,21 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
     },
     '/my/index': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/My/Index')),
+      component: dynamicWrapper(app, ['my', 'form'], () => import('../routes/My/Index')),
     },
     '/': {
       component: dynamicWrapper(app, ['user', 'login'], () => import('../layouts/BasicLayout')),
     },
     '/my/edit': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/My/Edit')),
+      component: dynamicWrapper(app, ['my'], () => import('../routes/My/Edit')),
     },
     '/diabetes/upload': {
       component: dynamicWrapper(app, ['form'], () => import('../routes/Diabetes/Upload')),
     },
     '/diabetes/tasklist': {
-      component: dynamicWrapper(app, ['rule'], () => import('../routes/Diabetes/TaskList')),
+      component: dynamicWrapper(app, ['rule', 'report'], () =>
+        import('../routes/Diabetes/TaskList'),
+      ),
     },
     // '/eye/upload': {
     //   component: dynamicWrapper(app, ['form'], () => import('../routes/Eye/Upload')),
@@ -183,9 +185,9 @@ export const getRouterData = app => {
     '/user/register': {
       component: dynamicWrapper(app, ['register'], () => import('../routes/User/Register')),
     },
-    // '/user/register-result': {
-    //   component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
-    // },
+    '/user/register-result': {
+      component: dynamicWrapper(app, [], () => import('../routes/User/RegisterResult')),
+    },
     // '/user/:id': {
     //   component: dynamicWrapper(app, [], () => import('../routes/User/SomeComponent')),
     // },

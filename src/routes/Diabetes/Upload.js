@@ -1,22 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import {
-  Form,
-  Input,
-  DatePicker,
-  Select,
-  Button,
-  Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
-  Upload,
-  Row,
-  Col,
-} from 'antd';
+import { Button, Card, Col, DatePicker, Form, Icon, Input, message, Radio, Row, Select, Upload } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import styles from './style.less';
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -27,7 +12,7 @@ const Dragger = Upload.Dragger;
 const props = {
   name: 'file',
   showUploadList: true,
-  action: 'http://localhost:3000/upload/image',
+  action: 'http://39.108.57.213:3000/api/upload/image',
   multiple: true,
   listType: 'picture',
 };
@@ -37,30 +22,46 @@ const props = {
 @Form.create()
 export default class BasicForms extends PureComponent {
   state = {
-    fileList: [],
+    files: [],
   };
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
-      if (!err) {
+      let allFilesUploaded = true;
+      this.state.files.map(item => {
+        if (item.status !== 'done') allFilesUploaded = false;
+      });
+      const formattedArr = [];
+      this.state.files.map(item => {
+        formattedArr.push({
+          fileName: item.name || undefined,
+          path: item.response.path || undefined,
+        });
+      });
+      const updateValues = { ...values, images: formattedArr };
+
+      if (!err && allFilesUploaded) {
         this.props.dispatch({
           type: 'form/submitRegularForm',
-          payload: values,
+          payload: { data: updateValues },
         });
       }
     });
   };
-  handleFileChange = item => {
-    console.log(Object.keys(item));
-    const { file, fileList, event } = item;
-    console.log(file);
-    console.log(fileList);
-    console.log(event);
+  onChange = info => {
+    if (info.file.status !== 'uploading') {
+      this.setState({ files: info.fileList });
+      console.log(info.file, info.fileList);
+    }
+    if (info.file.status === 'done') {
+      message.success(`${info.file.name} file uploaded successfully`);
+    } else if (info.file.status === 'error') {
+      message.error(`${info.file.name} file upload failed.`);
+    }
   };
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator, getFieldValue } = this.props.form;
-
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
@@ -79,11 +80,20 @@ export default class BasicForms extends PureComponent {
         sm: { span: 10, offset: 7 },
       },
     };
-
     return (
       <PageHeaderLayout title="上传图片">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
+            <FormItem {...formItemLayout} label="序列号">
+              {getFieldDecorator('id', {
+                rules: [
+                  {
+                    required: true,
+                    message: '请输入序列号',
+                  },
+                ],
+              })(<Input placeholder="XXX"/>)}
+            </FormItem>
             <FormItem {...formItemLayout} label="姓名">
               {getFieldDecorator('name', {
                 rules: [
@@ -162,12 +172,13 @@ export default class BasicForms extends PureComponent {
             <FormItem>
               <Row>
                 <Col span={10} offset={7}>
-                  <Dragger {...props} onChange={this.handleFileChange}>
+                  <Dragger {...props} onChange={this.onChange}>
                     <p className="ant-upload-drag-icon">
                       <Icon type="inbox" />
                     </p>
                     <p className="ant-upload-text">点击或将文件拖拽到此区域上传</p>
                     <p className="ant-upload-hint">支持单个或批量上传，严禁上传10MB以上的文件</p>
+                    <p className="ant-upload-hint">上传图片时确保图片方向正确</p>
                   </Dragger>
                 </Col>
               </Row>

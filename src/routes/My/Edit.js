@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Card } from 'antd';
+import { Button, Card, Form, Input } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
-import styles from './style.less';
 
 const FormItem = Form.Item;
 
@@ -16,8 +15,10 @@ export default class Index extends PureComponent {
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
         this.props.dispatch({
-          type: 'form/submitRegularForm',
-          payload: values,
+          type: 'my/submitForm',
+          payload: {
+            information: values,
+          },
         });
       }
     });
@@ -50,7 +51,7 @@ export default class Index extends PureComponent {
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="用户名">
-              {getFieldDecorator('title333', {
+              {getFieldDecorator('userName', {
                 rules: [
                   {
                     required: true,
@@ -59,18 +60,18 @@ export default class Index extends PureComponent {
                 ],
               })(<Input placeholder="Leo" />)}
             </FormItem>
-            <FormItem {...formItemLayout} label="注册邮箱">
-              {getFieldDecorator('title3', {
-                rules: [
-                  {
-                    required: true,
-                    message: '请输入注册邮箱',
-                  },
-                ],
-              })(<Input placeholder="11610522@mail.sustc.edu.cn" />)}
-            </FormItem>
+            {/*<FormItem {...formItemLayout} label="注册邮箱">*/}
+            {/*{getFieldDecorator('title3', {*/}
+            {/*rules: [*/}
+            {/*{*/}
+            {/*required: true,*/}
+            {/*message: '请输入注册邮箱',*/}
+            {/*},*/}
+            {/*],*/}
+            {/*})(<Input placeholder="11610522@mail.sustc.edu.cn" />)}*/}
+            {/*</FormItem>*/}
             <FormItem {...formItemLayout} label="工作单位">
-              {getFieldDecorator('title2', {
+              {getFieldDecorator('workPlace', {
                 rules: [
                   {
                     required: true,
@@ -80,7 +81,7 @@ export default class Index extends PureComponent {
               })(<Input placeholder="SUSTech" />)}
             </FormItem>
             <FormItem {...formItemLayout} label="验证邮箱">
-              {getFieldDecorator('title1', {
+              {getFieldDecorator('verifyMail', {
                 rules: [
                   {
                     required: true,

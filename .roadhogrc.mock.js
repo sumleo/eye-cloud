@@ -1,15 +1,15 @@
 import mockjs from 'mockjs';
 import { getRule, postRule } from './mock/rule';
-import { getActivities, getNotice, getFakeList } from './mock/api';
+import { getActivities, getFakeList, getNotice } from './mock/api';
 import { getFakeChartData } from './mock/chart';
-import { getProfileBasicData } from './mock/profile';
-import { getProfileAdvancedData } from './mock/profile';
+import { getProfileAdvancedData, getProfileBasicData } from './mock/profile';
 import { getNotices } from './mock/notices';
-import { format, delay } from 'roadhog-api-doc';
+import { delay } from 'roadhog-api-doc';
 
 // 是否禁用代理
 const noProxy = process.env.NO_PROXY === 'true';
 
+const url = 'http://39.108.57.213:3000/';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
   // 支持值为 Object 和 Array
@@ -62,8 +62,12 @@ const proxy = {
     $body: postRule,
   },
   'POST /api/forms': (req, res) => {
-    res.send({ message: 'Ok' });
+    res.send({ message: 'Ok', account: 'leore' });
   },
+  'GET /api/my/getUserInformation': url,
+  'POST /api/my/edit': url,
+  'POST /api/report/submit': url,
+  'GET /api/report/getReports': url,
   'GET /api/tags': mockjs.mock({
     'list|100': [{ name: '@city', 'value|1-100': 150, 'type|0-2': 1 }],
   }),
@@ -71,33 +75,35 @@ const proxy = {
   'GET /api/fake_chart_data': getFakeChartData,
   'GET /api/profile/basic': getProfileBasicData,
   'GET /api/profile/advanced': getProfileAdvancedData,
-  'POST /api/login/account': (req, res) => {
-    const { password, userName, type } = req.body;
-    if (password === '888888' && userName === 'admin') {
-      res.send({
-        status: 'ok',
-        type,
-        currentAuthority: 'admin',
-      });
-      return;
-    }
-    if (password === '123456' && userName === 'user') {
-      res.send({
-        status: 'ok',
-        type,
-        currentAuthority: 'user',
-      });
-      return;
-    }
-    res.send({
-      status: 'error',
-      type,
-      currentAuthority: 'guest',
-    });
-  },
-  'POST /api/register': (req, res) => {
-    res.send({ status: 'ok', currentAuthority: 'user' });
-  },
+  'POST /api/login/account': url,
+  //   (req, res) => {
+  //   const { password, userName, type } = req.body;
+  //   if (password === '888888' && userName === 'admin') {
+  //     res.send({
+  //       status: 'ok',
+  //       type,
+  //       currentAuthority: 'admin',
+  //     });
+  //     return;
+  //   }
+  //   if (password === '123456' && userName === 'user') {
+  //     res.send({
+  //       status: 'ok',
+  //       type,
+  //       currentAuthority: 'user',
+  //     });
+  //     return;
+  //   }
+  //   res.send({
+  //     status: 'error',
+  //     type,
+  //     currentAuthority: 'guest',
+  //   });
+  // },
+  'POST /api/register': url,
+  //   (req, res) => {
+  //   res.send({ status: 'ok', currentAuthority: 'user' });
+  // },
   'GET /api/notices': getNotices,
   'GET /api/500': (req, res) => {
     res.status(500).send({
