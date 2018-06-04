@@ -41,14 +41,12 @@ export default class LoginPage extends Component {
     return (
       <div className={styles.main}>
         <Login defaultActiveKey={type} onTabChange={this.onTabChange} onSubmit={this.handleSubmit}>
-          <Tab key="account" tab="CAS账户密码登录">
             {login.status === 'error' &&
             login.type === 'account' &&
             !login.submitting &&
             this.renderMessage('账户或密码错误')}
-            <UserName name="userName" placeholder="SUSTech ID"/>
+          <UserName name="userName" placeholder="E-mail"/>
             <Password name="password" placeholder="Password"/>
-          </Tab>
           <Submit loading={submitting}>登录</Submit>
         </Login>
       </div>
