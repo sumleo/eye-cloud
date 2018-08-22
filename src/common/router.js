@@ -96,7 +96,7 @@ export const getRouterData = app => {
       component: dynamicWrapper(app, ['my'], () => import('../routes/My/Edit')),
     },
     '/diabetes/upload': {
-      component: dynamicWrapper(app, ['form'], () => import('../routes/Diabetes/Upload')),
+      component: dynamicWrapper(app, ['report'], () => import('../routes/Diabetes/Upload')),
     },
     '/diabetes/tasklist': {
       component: dynamicWrapper(app, ['rule', 'report'], () =>

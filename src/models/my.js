@@ -1,4 +1,4 @@
-import { getUserInformation, submitMyForm } from '../services/api';
+import { getDoctorInfo,submitDoctorInfo } from '../services/api_my';
 import { message } from 'antd/lib/index';
 
 export default {
@@ -12,8 +12,8 @@ export default {
   },
 
   effects: {
-    * getUserInformation({ payload }, { call, put }) {
-      const response = yield call(getUserInformation, payload);
+    * getUserInformation(_, { call, put }) {
+      const response = yield call(getDoctorInfo);
       yield put({
         type: 'save',
         payload: response,
@@ -21,8 +21,9 @@ export default {
     },
     * submitForm({ payload }, { call }) {
       console.log(payload);
-      yield call(submitMyForm, payload);
-      message.success('提交成功');
+      const res=yield call(submitDoctorInfo, payload);
+      console.log(res)
+      message.info(res.errmsg);
     },
   },
 

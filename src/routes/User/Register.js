@@ -3,6 +3,7 @@ import { connect } from 'dva';
 import { Link, routerRedux } from 'dva/router';
 import { Button, Col, Form, Input, Popover, Progress, Row, Select } from 'antd';
 import styles from './Register.less';
+import md5 from 'blueimp-md5'
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -37,8 +38,8 @@ export default class Register extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    const account = this.props.form.getFieldValue('mail');
-    if (nextProps.register.status === 'ok') {
+    const account = this.props.form.getFieldValue('email');
+    if (nextProps.register.status === 'success') {
       this.props.dispatch(
         routerRedux.push({
           pathname: '/user/register-result',
@@ -55,6 +56,7 @@ export default class Register extends Component {
   }
 
   onGetCaptcha = () => {
+    const mail=this.props.form.getFieldValue("email");
     let count = 59;
     this.setState({ count });
     this.interval = setInterval(() => {
@@ -64,6 +66,12 @@ export default class Register extends Component {
         clearInterval(this.interval);
       }
     }, 1000);
+    this.props.dispatch({
+      type: 'register/getCaptcha',
+      payload: {
+        email:mail,
+      },
+    });
   };
 
   getPasswordStatus = () => {
@@ -86,10 +94,15 @@ export default class Register extends Component {
     e.preventDefault();
     this.props.form.validateFields({ force: true }, (err, values) => {
       if (!err) {
+        let {email:username,password,code,employer}=values;
+        password=md5(password);
         this.props.dispatch({
           type: 'register/submit',
           payload: {
-            ...values,
+            username:username,
+            password:password,
+            code:code,
+            employer:employer,
             prefix: this.state.prefix,
           },
         });
@@ -172,7 +185,7 @@ export default class Register extends Component {
         <h3>注册</h3>
         <Form onSubmit={this.handleSubmit}>
           <FormItem>
-            {getFieldDecorator('mail', {
+            {getFieldDecorator('email', {
               rules: [
                 {
                   required: true,
@@ -223,23 +236,19 @@ export default class Register extends Component {
             })(<Input size="large" type="password" placeholder="确认密码" />)}
           </FormItem>
           <FormItem>
-            {getFieldDecorator('mobile', {
+            {getFieldDecorator('employer', {
               rules: [
                 {
                   required: true,
-                  message: '请输入手机号！',
-                },
-                {
-                  pattern: /^1\d{10}$/,
-                  message: '手机号格式错误！',
-                },
+                  message: '请输入机构名称！',
+                }
               ],
-            })(<Input size="large" style={{ width: '100%' }} placeholder="手机号" />)}
+            })(<Input size="large" style={{ width: '100%' }} placeholder="机构名称" />)}
           </FormItem>
           <FormItem>
             <Row gutter={8}>
               <Col span={16}>
-                {getFieldDecorator('captcha', {
+                {getFieldDecorator('code', {
                   rules: [
                     {
                       required: true,

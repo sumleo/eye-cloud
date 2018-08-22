@@ -12,6 +12,7 @@ const noProxy = process.env.NO_PROXY === 'true';
 const url = 'http://39.108.57.213:3000/';
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 const proxy = {
+  'POST /api/(.*)':"http://119.23.214.179:20297/api/",
   // 支持值为 Object 和 Array
   'GET /api/currentUser': {
     $desc: '获取当前用户接口',

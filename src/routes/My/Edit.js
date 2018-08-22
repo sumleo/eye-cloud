@@ -5,8 +5,9 @@ import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 
 const FormItem = Form.Item;
 
-@connect(({ loading }) => ({
-  submitting: loading.effects['form/submitRegularForm'],
+@connect(({ my,loading }) => ({
+  my,
+  submitting: loading.effects['my/submitForm'],
 }))
 @Form.create()
 export default class Index extends PureComponent {
@@ -17,7 +18,7 @@ export default class Index extends PureComponent {
         this.props.dispatch({
           type: 'my/submitForm',
           payload: {
-            information: values,
+            userinfo: values,
           },
         });
       }
@@ -60,16 +61,6 @@ export default class Index extends PureComponent {
                 ],
               })(<Input placeholder="Leo" />)}
             </FormItem>
-            {/*<FormItem {...formItemLayout} label="注册邮箱">*/}
-            {/*{getFieldDecorator('title3', {*/}
-            {/*rules: [*/}
-            {/*{*/}
-            {/*required: true,*/}
-            {/*message: '请输入注册邮箱',*/}
-            {/*},*/}
-            {/*],*/}
-            {/*})(<Input placeholder="11610522@mail.sustc.edu.cn" />)}*/}
-            {/*</FormItem>*/}
             <FormItem {...formItemLayout} label="工作单位">
               {getFieldDecorator('workPlace', {
                 rules: [

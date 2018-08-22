@@ -4,6 +4,7 @@ import { Link } from 'dva/router';
 import { Alert } from 'antd';
 import Login from 'components/Login';
 import styles from './Login.less';
+import md5 from 'blueimp-md5';
 
 const { Tab, UserName, Password, Submit } = Login;
 
@@ -22,6 +23,8 @@ export default class LoginPage extends Component {
 
   handleSubmit = (err, values) => {
     if (!err) {
+      let {password}=values;
+      values.password=md5(password);
       this.props.dispatch({
         type: 'login/login',
         payload: {
@@ -45,10 +48,15 @@ export default class LoginPage extends Component {
             login.type === 'account' &&
             !login.submitting &&
             this.renderMessage('账户或密码错误')}
-          <UserName name="userName" placeholder="E-mail"/>
+          <UserName name="username" placeholder="E-mail"/>
             <Password name="password" placeholder="Password"/>
           <Submit loading={submitting}>登录</Submit>
         </Login>
+        <div className={styles.other}>
+          <Link className={styles.register} to="/user/register">
+            注册账户
+          </Link>
+        </div>
       </div>
     );
   }

@@ -1,9 +1,16 @@
 import request from '../utils/request';
+import marco from '../utils/macro';
 
 
-export async function loginAccount(params) {
-  return request('/api/common/login', {
+export async function getDoctorInfo() {
+  return request(`${marco.url()}/api/doctor/userinfo`, {
     method: 'POST',
-    body: params,
+  });
+}
+
+export async function submitDoctorInfo(param) {
+  return request(`${marco.url()}/api/doctor/userinfo/reset`, {
+    method: 'POST',
+    body:param,
   });
 }

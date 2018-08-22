@@ -1,7 +1,8 @@
 import { routerRedux } from 'dva/router';
-import { fakeAccountLogin } from '../services/api';
+import { loginAccount } from '../services/api_login';
 import { setAuthority } from '../utils/authority';
 import { reloadAuthorized } from '../utils/Authorized';
+import {message} from 'antd';
 
 export default {
   namespace: 'login',
@@ -12,17 +13,18 @@ export default {
 
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
+      console.log(payload);
+      const response = yield call(loginAccount, payload);
+      response.status=true;
+      response.type=response.role;
       yield put({
         type: 'changeLoginStatus',
         payload: response,
       });
-      console.log(response);
+      message.info(response.errmsg);
       // Login successfully
-      if (response.status === 'ok') {
+      if (response.role) {
         reloadAuthorized();
-        console.log(localStorage.getItem('antd-pro-authority'));
-        console.log('my index');
         yield put(routerRedux.push('/my/index'));
       }
     },
@@ -50,7 +52,7 @@ export default {
 
   reducers: {
     changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
+      setAuthority(payload.role);
       return {
         ...state,
         status: payload.status,

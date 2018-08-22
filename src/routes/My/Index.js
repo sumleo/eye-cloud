@@ -49,32 +49,34 @@ export default class Index extends PureComponent {
     };
     const { my } = this.props;
     let data;
-    if (my && my.data && my.data.data) {
-      data = my.data.data;
+    let userInfo;
+    console.log(my);
+    if (my && my.data && my.data[0]) {
+      data = my.data[0];
+      userInfo=my.data[0].userinfo?JSON.parse(my.data[0].userinfo):{};
     }
-    console.log(data);
     return (
       <PageHeaderLayout title="我的主页">
         <Card bordered={false}>
           <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
             <FormItem {...formItemLayout} label="用户名">
               {getFieldDecorator('username', {
-                initialValue: data ? data.userName || '未设置' : '未设置',
+                initialValue: userInfo ? userInfo.userName || '未设置' : '未设置',
               })(<Input disabled/>)}
             </FormItem>
             <FormItem {...formItemLayout} label="注册邮箱">
               {getFieldDecorator('mail', {
-                initialValue: data ? data.mail || '未设置' : '未设置',
+                initialValue: data ? data.username || '未设置' : '未设置',
               })(<Input disabled/>)}
             </FormItem>
             <FormItem {...formItemLayout} label="工作单位">
               {getFieldDecorator('workPlace', {
-                initialValue: data ? data.workPlace || '未设置' : '未设置',
+                initialValue: userInfo ? userInfo.workPlace || '未设置' : '未设置',
               })(<Input disabled/>)}
             </FormItem>
             <FormItem {...formItemLayout} label="验证邮箱">
               {getFieldDecorator('verifyMail', {
-                initialValue: data ? data.verifyMail || '未设置' : '未设置',
+                initialValue: userInfo ? userInfo.verifyMail || '未设置' : '未设置',
               })(<Input disabled/>)}
             </FormItem>
           </Form>

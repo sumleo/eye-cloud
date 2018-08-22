@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'dva';
 import { Button, Card, Col, DatePicker, Form, Icon, Input, message, Radio, Row, Select, Upload } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
+import marco from '../../utils/macro';
+
 
 const FormItem = Form.Item;
 const { Option } = Select;
@@ -12,12 +14,12 @@ const Dragger = Upload.Dragger;
 const props = {
   name: 'file',
   showUploadList: true,
-  action: 'http://39.108.57.213:3000/api/upload/image',
+  action: `${marco.url()}/api/common/upload_file`,
   multiple: true,
   listType: 'picture',
 };
 @connect(({ loading }) => ({
-  submitting: loading.effects['form/submitRegularForm'],
+  submitting: loading.effects['report/submitForm'],
 }))
 @Form.create()
 export default class BasicForms extends PureComponent {
@@ -39,10 +41,11 @@ export default class BasicForms extends PureComponent {
         });
       });
       const updateValues = { ...values, images: formattedArr };
-
+      //一定要删除
+      allFilesUploaded=true;
       if (!err && allFilesUploaded) {
         this.props.dispatch({
-          type: 'form/submitRegularForm',
+          type: 'report/submitForm',
           payload: { data: updateValues },
         });
       }
