@@ -14,15 +14,12 @@ export default class TaskList extends PureComponent {
   constructor(props) {
     super(props);
     const { dispatch } = this.props;
-    dispatch({
-      type: 'report/getReports',
-    });
   }
 
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch({
-      type: 'rule/fetch',
+      type: 'report/getReports',
     });
   }
   handleClick = e => {
@@ -31,12 +28,17 @@ export default class TaskList extends PureComponent {
   };
   render() {
     const that = this;
-    console.log(this.props);
     let formatedData;
-    if (this.props.report.data && this.props.report.data.data) {
-      formatedData = this.props.report.data.data;
-    }
-    this.setState({ data: formatedData });
+    console.log(this.props.report.data);
+    formatedData=this.props.report.data.map((e)=>{
+      let result={};
+      result={
+        ...e,
+        ...JSON.parse(e.reportinfo).data,
+      };
+      return result;
+    });
+    console.log(formatedData);
     function renderAction() {
       return (
         <div>
@@ -51,7 +53,6 @@ export default class TaskList extends PureComponent {
       );
     }
 
-    console.log(formatedData);
     function expandedRowRender(record) {
       return <div>{record.description}</div>;
     }
@@ -63,10 +64,10 @@ export default class TaskList extends PureComponent {
       { title: '状态得分', dataIndex: 'score', key: 'score' },
       { title: '判断结果', dataIndex: 'result', key: 'result' },
       { title: '运行状态进度', dataIndex: 'progress', key: 'progress' },
-      { title: '日期', dataIndex: 'date', key: 'date' },
+      { title: '日期', dataIndex: 'create_time', key: 'date' },
       { title: '运算时间', dataIndex: 'computeTime', key: 'computeTime' },
-      { title: '作者', dataIndex: 'author', key: 'author' },
-      { title: '操作', dataIndex: '', key: 'x', render: renderAction },
+      { title: '作者', dataIndex: 'username', key: 'author' },
+      { title: '操作', render: renderAction },
     ];
 
     return (

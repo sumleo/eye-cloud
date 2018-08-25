@@ -4,11 +4,13 @@ import {message} from 'antd';
 export default {
   namespace: 'report',
 
-  state: {},
+  state: {
+    data:[],
+  },
 
   effects: {
-    * getReports({ payload }, { call, put }) {
-      const response = yield call(getReport, {page:1,size:1000});
+    * getReports(_, { call, put }) {
+      const response = yield call(getReport, {page:1,size:100000});
       console.log(response);
       yield put({
         type: 'save',
@@ -25,7 +27,7 @@ export default {
     save(state, action) {
       return {
         ...state,
-        data: action.payload,
+        data: action.payload.reportList,
       };
     },
   },

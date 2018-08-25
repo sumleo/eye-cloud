@@ -38,7 +38,6 @@ export default class BasicForms extends PureComponent {
         });
       });
       const updateValues = { ...values, images: formattedArr };
-      //一定要删除
       allFilesUploaded=true;
       if (!err && allFilesUploaded) {
         this.props.dispatch({
@@ -51,9 +50,9 @@ export default class BasicForms extends PureComponent {
   onChange = info => {
     if (info.file.status !== 'uploading') {
       this.setState({ files: info.fileList });
-      console.log(info.file, info.fileList);
     }
     if (info.file.status === 'done') {
+      this.setState({files:info.fileList});
       message.success(`${info.file.name} file uploaded successfully`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} file upload failed.`);

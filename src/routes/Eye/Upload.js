@@ -25,7 +25,7 @@ const { TextArea } = Input;
 const Dragger = Upload.Dragger;
 
 const props = {
-  name: 'file',
+  name: 'image',
   showUploadList: false,
   action: 'http://119.23.214.179:20297/api/common/upload_file',
 };
