@@ -49,11 +49,9 @@ export default class Index extends PureComponent {
     };
     const { my } = this.props;
     let data;
-    let userInfo;
-    console.log(my);
-    if (my && my.data && my.data[0]) {
-      data = my.data[0];
-      userInfo=my.data[0].userinfo?JSON.parse(my.data[0].userinfo):{};
+    let userInfo={};
+    if (my && my.data&&my.data.userInfo) {
+      userInfo=my.data.userInfo?JSON.parse(my.data.userInfo[0].userinfo):{};
     }
     return (
       <PageHeaderLayout title="我的主页">

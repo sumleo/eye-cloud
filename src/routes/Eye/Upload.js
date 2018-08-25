@@ -27,7 +27,7 @@ const Dragger = Upload.Dragger;
 const props = {
   name: 'file',
   showUploadList: false,
-  action: '/upload.do',
+  action: 'http://119.23.214.179:20297/api/common/upload_file',
 };
 @connect(({ loading }) => ({
   submitting: loading.effects['form/submitRegularForm'],

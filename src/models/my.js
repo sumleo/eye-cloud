@@ -5,10 +5,6 @@ export default {
   namespace: 'my',
 
   state: {
-    data: {
-      list: [],
-      pagination: {},
-    },
   },
 
   effects: {

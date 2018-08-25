@@ -6,9 +6,6 @@ import marco from '../../utils/macro';
 
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
 const Dragger = Upload.Dragger;
 
 const props = {

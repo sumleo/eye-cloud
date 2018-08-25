@@ -23,6 +23,7 @@ export default {
     * getCaptcha({payload},{call}){
       console.log(payload);
       const response=yield call(getCaptcha,payload);
+      console.log(response);
       message.info(response.errmsg);
     },
   },
