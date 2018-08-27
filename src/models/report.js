@@ -27,7 +27,7 @@ export default {
     save(state, action) {
       return {
         ...state,
-        data: action.payload.reportList,
+        data: action.payload.reportList||[],
       };
     },
   },

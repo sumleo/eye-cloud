@@ -11,9 +11,9 @@ const { RangePicker } = DatePicker;
 }))
 @Form.create()
 export default class TaskList extends PureComponent {
+
   constructor(props) {
     super(props);
-    const { dispatch } = this.props;
   }
 
   componentDidMount() {
