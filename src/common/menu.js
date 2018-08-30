@@ -19,6 +19,17 @@ const menuData = [
     ],
   },
   {
+    name: '资料下载',
+    icon: 'download',
+    path: 'download',
+    children: [
+      {
+        name: '资料下载',
+        path: 'index',
+      },
+    ],
+  },
+  {
     name: '糖尿病视网膜病变筛查',
     icon: 'book',
     path: 'diabetes',

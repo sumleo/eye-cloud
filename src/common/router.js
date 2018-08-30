@@ -103,6 +103,11 @@ export const getRouterData = app => {
         import('../routes/Diabetes/TaskList'),
       ),
     },
+    '/download/index': {
+      component: dynamicWrapper(app, [], () =>
+        import('../routes/Download/Index'),
+      ),
+    },
     // '/eye/upload': {
     //   component: dynamicWrapper(app, ['form'], () => import('../routes/Eye/Upload')),
     // },
